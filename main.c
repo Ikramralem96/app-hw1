@@ -96,14 +96,14 @@ printf("affichage de la matrice C\n");
 	Argement.B = B;
 	Argement.C = C;
 	
-	blocksize_Matrix smallMatrix;
-	smallMatrix.NbrThreads = NBR ;
-	smallMatrix.n = n;
-	smallMatrix.taille = n/(int)sqrt((NBR));
-	smallMatrix.reste = n%(int)sqrt((NBR));
-	smallMatrix.A = A;
-	smallMatrix.B = B;
-	smallMatrix.C = D; 
+	blocksize_Matrix PetitMatrix;
+	PetitMatrix.NbrThreads = NBR ;
+	PetitMatrix.n = n;
+	PetitMatrix.taille = n/(int)sqrt((NBR));
+	PetitMatrix.reste = n%(int)sqrt((NBR));
+	PetitMatrix.A = A;
+	PetitMatrix.B = B;
+	PetitMatrix.C = D; 
 	
 	
 	
@@ -143,21 +143,21 @@ temps = ((double)TempsFin=TempsDeb) / CLOCKS_PER_SEC;
 printf("temps d'execution : %f \n",temps);
 
 
-  printf("Parallel execution small Matrix : \n");
+  printf("Parallel execution Petit Matrix : \n");
 		debut = clock();
-		pthread_t *threads2 = (pthread_t*) malloc(sizeof(pthread_t) * NBRTHREAD);
-		for(i=0; i<NBRTHREAD; i++){ 
-			smallMatrix.istart = (i/(int)sqrt(NBRTHREAD)) * smallMatrix.taille;
-			smallMatrix.iend   = smallMatrix.istart  + smallMatrix.taille -1 + smallMatrix.reste;
-			if(i < sqrt(NBRTHREAD)){
-				smallMatrix.jstart = i * smallMatrix.taille;
-				smallMatrix.jend   = smallMatrix.jstart + smallMatrix.taille -1 + smallMatrix.reste;
+		pthread_t *threads2 = (pthread_t*) malloc(sizeof(pthread_t) * NBR);
+		for(i=0; i<NBR; i++){ 
+			PetitMatrix.istart = (i/(int)sqrt(NBR)) * PetitMatrix.taille;
+			PetitMatrix.iend   = PetitMatrix.istart  + PetitMatrix.taille -1 + PetitMatrix.reste;
+			if(i < sqrt(NBR)){
+				PetitMatrix.jstart = i * PetitMatrix.taille;
+				PetitMatrix.jend   = PetitMatrix.jstart + PetitMatrix.taille -1 + PetitMatrix.reste;
 			}else{
-				smallMatrix.jstart = (i % (int)sqrt(NBRTHREAD)) * smallMatrix.taille;
-				smallMatrix.jend   = smallMatrix.jstart + smallMatrix.taille -1 + smallMatrix.reste;
+				PetitMatrix.jstart = (i % (int)sqrt(NBR)) * PetitMatrix.taille;
+				PetitMatrix.jend   = PetitMatrix.jstart + PetitMatrix.taille -1 + PetitMatrix.reste;
 			}
 			//debut = clock();
-			if(pthread_create(&threads2[i], NULL,Mult_Matricielle,&smallMatrix)){ 
+			if(pthread_create(&threads2[i], NULL,MultipleMatrix,&PetitMatrix)){ 
 				fprintf(stderr, "Error creating thread\n");
 				return 3;
 			} 
@@ -167,12 +167,12 @@ printf("temps d'execution : %f \n",temps);
 			}
 		} 		
 	}
-			printMatrix(smallMatrix.C,smallMatrix.n);
+			printMatrix(PetitMatrix.C,PetitMatrix.n);
 			fin = clock();
-			temps = ((double)fin - debut) / CLOCKS_PER_SEC; //Calcul le temps d'execution pour le mode parallel small Matrix
+			temps = ((double)fin - debut) / CLOCKS_PER_SEC; 
 			printf("\ntemps d'execution : %f \n",temps);
 			printf("\n\n\n");
 			
 	}else 
-		printf("Please choose a perfect square number for threads (like 4,9,16,25 ...) \n");
+		printf("choisi le bon nombre square  (comme 4,9,16,25 ...) \n");
 }
