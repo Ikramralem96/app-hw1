@@ -37,8 +37,8 @@ typedef struct blocksize_Matrix{
 }blocksize_Matrix;
 
 
-void *Mult_vectorielle(void * args);
-void *Mult_Matricielle(void * args);
+void *MultipleVectorielle(void * args);
+void *MultipleMatrix(void * args);
 
 int main(int argc, char **argv) {
 
