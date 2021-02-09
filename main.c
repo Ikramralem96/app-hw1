@@ -174,5 +174,5 @@ printf("temps d'execution : %f \n",temps);
 			printf("\n\n\n");
 			
 	}else 
-		printf("choisi le bon nombre square  (comme 4,9,16,25 ...) \n");
+		printf("choisi le bon nombre square   \n");
 }
