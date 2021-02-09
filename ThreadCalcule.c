@@ -45,7 +45,7 @@ void * MultipleMatrix(){
 }
    return NULL;
 }
-void *Mult_vectorielle(void * args){		
+void *MultipleVectorielle(void * args){		
 	blocksize * blk = (blocksize *) args;
 	for(int i = blk->istart; i<=blk->iend; i++){
 		for(int j=0; j<blk->n; j++)
