@@ -18,7 +18,7 @@ int iend;
 int istart;
 }blocksize;
 
-typedef struct blocksize_Matrix_Form{
+typedef struct blocksize_Matrix{
 	int n;
 	int NbrThreads;
 	int taille;
@@ -30,7 +30,7 @@ typedef struct blocksize_Matrix_Form{
 	int **A;
 	int **B;
 	int **C;
-}blocksize_Matrix_Form;
+}blocksize_Matrix;
 
 
  
